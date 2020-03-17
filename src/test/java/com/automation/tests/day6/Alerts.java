@@ -30,6 +30,7 @@ public class Alerts {
         String actual = driver.findElement(By.id("result")).getText();
 
         //if will fail, because there is a typo ##BUG##
+        System.out.println("TEST #1");
         if(expected.equals(actual)){
             System.out.println("TEST PASSED");
         }else {
@@ -40,10 +41,14 @@ public class Alerts {
         }
 
         BrowserUtils.wait(3);
+
+        //=====================================================
+        System.out.println("TEST #2");
+
         buttons.get(1).click(); // to click on the 2nd button
         BrowserUtils.wait(3);
         // to click cancel
-        driver.switchTo().alert().dismiss();
+        driver.switchTo().alert().dismiss(); // result must be: You clicked: Cancel
 
         String expected2 = "You clicked: Cancel";
         String actual2 = driver.findElement(By.id("result")).getText();
@@ -55,6 +60,8 @@ public class Alerts {
             System.out.println("Expected: "+expected2);
             System.out.println("Actual:   "+actual2);
         }
+        //==================================================
+        System.out.println("TEST #3");
 
         //Task: click on button #3
         //Enter some text: Hello, World!
@@ -64,7 +71,11 @@ public class Alerts {
         BrowserUtils.wait(3);
         Alert alert = driver.switchTo().alert();
 
-        alert.sendKeys("Hello, World!");
+        alert.sendKeys("Hello, World!"); //  enter text
+        BrowserUtils.wait(3);
+
+        alert.accept();// click ok
+
         String actual3 = driver.findElement(By.id("result")).getText();
         String expected3 = "Hello, World";
 
