@@ -21,13 +21,5 @@ public class QuitVsClose {
         driver.quit(); // to close all windows
 
 
-
-
-
-
-
-
-
-
     }
 }
