@@ -40,10 +40,14 @@ public class PracticeTests {
     public void loginTest(){
         //go to "Form Authentication" page
         driver.findElement(By.linkText("Form Authentication")).click();
+
         BrowserUtils.wait(3);
+
         driver.findElement(By.name("username")).sendKeys("tomsmith");
         driver.findElement(By.name("password")).sendKeys("SuperSecretPassword", Keys.ENTER);
+
         BrowserUtils.wait(3);
+
         String expected = "Welcome to the Secure Area. When you are done click logout below.";
         String actual = driver.findElement(By.className("subheader")).getText();
         //if assertion fails - it will throw exception and message will be printed

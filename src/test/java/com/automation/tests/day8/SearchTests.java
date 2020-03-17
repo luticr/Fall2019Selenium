@@ -104,7 +104,7 @@ public class SearchTests {
 
     @AfterMethod
     public void teardown() {
-        // close
+        // close browser and destroy web-driver object
         driver.quit();
     }
 }

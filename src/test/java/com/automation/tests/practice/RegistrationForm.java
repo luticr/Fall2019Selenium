@@ -87,20 +87,22 @@ public class RegistrationForm {
 
     }
 
-    @BeforeMethod
-    public void setup() {
-        WebDriverManager.chromedriver().version("79").setup();
-        driver = new ChromeDriver();
-        driver.get(URL);
-        driver.manage().window().maximize();
 
-    }
     @Test
     public void verifyAlphabeticLettersOnlyTest() {
         driver.findElement(firstNameBy).sendKeys("123");
         BrowserUtils.wait(3);
         WebElement warningMessage = driver.findElement(By.xpath("//small[text()='first name can only consist of alphabetical letters']"));
         Assert.assertTrue(warningMessage.isDisplayed());
+
+    }
+
+    @BeforeMethod
+    public void setup() {
+        WebDriverManager.chromedriver().version("79").setup();
+        driver = new ChromeDriver();
+        driver.get(URL);
+        driver.manage().window().maximize();
 
     }
 
