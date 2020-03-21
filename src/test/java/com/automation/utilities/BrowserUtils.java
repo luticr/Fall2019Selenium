@@ -21,7 +21,7 @@ public class BrowserUtils {
         }
     }
 
-    public List<String> getTextFromWebElements (List<WebElement> elements) {
+    public static List<String> getTextFromWebElements (List<WebElement> elements) {
         List<String> textValues = new ArrayList<>();
         for (WebElement element : elements) {
             textValues.add(element.getText());
