@@ -67,8 +67,56 @@ public class JSExecutor2 {
         Assert.assertEquals(result.getText(), "Now it's gone!");
 
     }
+    @Test
+    public void textInputTest() {
+        driver.findElement(By.linkText("Form Authentication")).click();
+        BrowserUtils.wait(3);
 
-    @AfterMethod
+        WebElement username = driver.findElement(By.name("username"));
+        WebElement password = driver.findElement(By.name("password"));
+        WebElement loginbtn = driver.findElement(By.id("wooden_spoon"));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        //to get text from input box - read attribute "value"
+        //to enter text - set attribute "value"
+        //.setAttribute('value', 'text') - enter some text
+        js.executeScript("arguments[0].setAttribute('value', 'tomsmith')" , username);
+        js.executeScript("arguments[0].setAttribute('value', 'SuperSecretPassword')", password);
+        js.executeScript("arguments[0].click()", loginbtn);
+
+        BrowserUtils.wait(4);
+
+        String expected = "Welcome to the Secure Area. When you are done click logout below.";
+        String subheader = js.executeScript("return document.getElementsByClassName('subheader')[0].textContent").toString();
+
+    }
+
+    @Test
+    private void scrollToElement() {
+        BrowserUtils.wait(5);
+
+        //href = link, URL
+        WebElement link = driver.findElement(By.linkText("Cybertek School"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript("arguments[0].scrollIntoView(true)", link);
+
+
+    }
+    @Test
+    public void scrollTest() {
+        driver.navigate().to("http://practice.cybertekschool.com/infinite_scroll");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        for (int i = 0; i < 15; i++) {
+            js.executeScript("window.scrollBy(0, 1000)");
+            BrowserUtils.wait(1);
+
+        }
+
+    }
+
+
+    @AfterMethod ()
     public void teardown() {
         BrowserUtils.wait(2);
         driver.quit();
