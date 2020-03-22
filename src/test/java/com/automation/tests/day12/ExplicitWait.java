@@ -2,15 +2,16 @@ package com.automation.tests.day12;
 
 import com.automation.utilities.DriverFactory;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 public class ExplicitWait {
     private WebDriver driver;
@@ -79,9 +80,6 @@ public class ExplicitWait {
         password.sendKeys("SuperSecretPassword");
         submitBtn.click();
     }
-
-
-
 
     @AfterMethod
     public void teardown() {
