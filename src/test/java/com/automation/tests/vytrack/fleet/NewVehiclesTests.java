@@ -7,7 +7,7 @@ import com.automation.utilities.Driver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class NewVehiclesPageTests extends AbstractTestBase {
+public class NewVehiclesTests extends AbstractTestBase {
 
     @Test
     public void verifyTitle(){
@@ -17,6 +17,7 @@ public class NewVehiclesPageTests extends AbstractTestBase {
         vehiclesPage.navigateTo("Fleet", "Vehicles");
         String expectedTitle = "All - Car - Entities - System - Car - Entities - System";
         String actualTitle = Driver.getDriver().getTitle();
+
         Assert.assertEquals(actualTitle, expectedTitle);
     }
 }
