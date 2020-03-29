@@ -15,7 +15,9 @@ public abstract class AbstractTestBase {
     //we cannot use it on its own/ by definition it is NOT concrete
 
     //will be visible in the subclass, regardless on subclass location (same package or no)
-    protected WebDriverWait wait; //for explicit wait ( explicit i and implicit cannot be used in the same task - can be in the same class)
+    protected WebDriverWait wait;
+
+    //for explicit wait ( explicit i and implicit cannot be used in the same task - can be in the same class)
     //if this variable needs to be visible in same class and subclasses make it protected
     //if anywhere then public
 

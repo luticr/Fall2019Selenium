@@ -29,6 +29,7 @@ public class CallsPageTests {
         driver = DriverFactory.createDriver("chrome");
         driver.get("https://qa3.vytrack.com/user/login");
         driver.manage().window().maximize();
+
         actions = new Actions(driver);
 
         BrowserUtils.wait(3);
@@ -48,11 +49,21 @@ public class CallsPageTests {
         BrowserUtils.wait(5);
 
     }
+
+    /**
+     * Scenario: Verify for store manager
+     *
+     * Login as story manager
+     * Go to Activities --> Calls
+     * Verify that Log Call button is displayed
+     */
+
     @Test
     public void verifyLogCallButton() {
         WebElement logCallBtnElement = driver.findElement(logCallBtnBy);
         Assert.assertTrue(logCallBtnElement.isDisplayed());
     }
+
     @AfterMethod
     public void teardown() {
         driver.quit();
