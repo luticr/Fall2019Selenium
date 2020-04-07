@@ -12,10 +12,7 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.*;
 
 import java.io.IOException;
 
@@ -28,9 +25,12 @@ public abstract class AbstractTestBase {
     protected ExtentHtmlReporter htmlReporter;
     protected ExtentTest test;
 
-
+     //@Optional - to make parameter optional
+    // if you don't specify it, testng will require to specify this parameter for every test, in xml runner
     @BeforeTest
-    public void setupTest() {
+    @Parameters("reportName")
+    public void setupTest(@Optional String reportName) {
+
         report = new ExtentReports();
         String reportPath = "";
         //location of report file
@@ -55,10 +55,10 @@ public abstract class AbstractTestBase {
 
     @BeforeMethod
     public void setup() {
-        String URL = ConfigurationReader.getProperty("qa1");
+        String URL = ConfigurationReader.getProperty("qa3");
         Driver.getDriver().get(URL);
         Driver.getDriver().manage().window().maximize();
-        wait = new WebDriverWait(Driver.getDriver(), 15);
+        wait = new WebDriverWait(Driver.getDriver(), 25);
         actions = new Actions(Driver.getDriver());
 
     }
@@ -66,19 +66,20 @@ public abstract class AbstractTestBase {
 
     @AfterMethod
     public void teardown(ITestResult iTestResult) throws IOException {
-
-            //ITestResult class describes the result of a test.
-            //if test failed, take a screenshot
-            if (iTestResult.getStatus() == ITestResult.FAILURE) {
-                //screenshot will have a name of the test
-                String screenshotPath = BrowserUtils.getScreenshot(iTestResult.getName());
-                test.fail(iTestResult.getName());//attach test name that failed
-                BrowserUtils.wait(2);
-                test.addScreenCaptureFromPath(screenshotPath, "Failed");//attach screenshot
-                test.fail(iTestResult.getThrowable());//attach console output
-            }
-
-            Driver.closeDriver();
+        //ITestResult class describes the result of a test.
+        //if test failed, take a screenshot
+        //no failure - no screenshot
+        if (iTestResult.getStatus() == ITestResult.FAILURE) {
+            //screenshot will have a name of the test
+            String screenshotPath = BrowserUtils.getScreenshot(iTestResult.getName());
+            test.fail(iTestResult.getName());//attach test name that failed
+            BrowserUtils.wait(2);
+            test.addScreenCaptureFromPath(screenshotPath, "Failed");//attach screenshot
+            test.fail(iTestResult.getThrowable());//attach console output
         }
+
+        BrowserUtils.wait(2);
+        Driver.closeDriver();
+    }
 }
 
